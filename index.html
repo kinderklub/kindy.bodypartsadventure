@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Sambungkan Anggota Badan | Connect the Body Parts - Kindy Klub</title>
+  
+  <!-- Quicksand Font ONLY -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Quicksand', 'sans-serif'],
+          },
+          colors: {
+            candy: {
+              pink: '#FF2A85',
+              hotpink: '#FF007F',
+              magenta: '#E60067',
+              coral: '#FF5E62',
+              orange: '#FF7A00',
+              yellow: '#FFD200',
+              purple: '#8A2BE2',
+              violet: '#6B00D7',
+              blue: '#0088FF',
+              cyan: '#00D4FF',
+              aqua: '#00F0FF',
+              lime: '#70E000',
+              cream: '#FFF9F0',
+              navy: '#1A0B3B',
+              dark: '#11052C'
+            }
+          },
+          animation: {
+            'wobble': 'wobble 0.6s ease-in-out',
+            'float-slow': 'floating 4s ease-in-out infinite',
+            'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+            'bounce-soft': 'bounceSoft 1.5s ease-in-out infinite',
+            'pop-in': 'popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
+          },
+          keyframes: {
+            wobble: {
+              '0%, 100%': { transform: 'translateX(0) rotate(0deg)' },
+              '20%': { transform: 'translateX(-8px) rotate(-4deg)' },
+              '40%': { transform: 'translateX(8px) rotate(4deg)' },
+              '60%': { transform: 'translateX(-5px) rotate(-2deg)' },
+              '80%': { transform: 'translateX(5px) rotate(2deg)' }
+            },
+            floating: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' }
+            },
+            pulseGlow: {
+              '0%, 100%': { filter: 'drop-shadow(0 0 6px rgba(255, 210, 0, 0.6))', transform: 'scale(1)' },
+              '50%': { filter: 'drop-shadow(0 0 16px rgba(255, 42, 133, 0.9))', transform: 'scale(1.08)' }
+            },
+            bounceSoft: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-6px)' }
+            },
+            popIn: {
+              '0%': { opacity: '0', transform: 'scale(0.8)' },
+              '100%': { opacity: '1', transform: 'scale(1)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    * {
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+      font-family: 'Quicksand', sans-serif !important;
+      touch-action: manipulation;
+    }
+    
+    /* Ensure no horizontal scrolling */
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+      background-color: #11052C;
+      color: #FFF9F0;
+    }
+
+    /* Target marker pulsing */
+    .target-marker-pulse {
+      animation: pulseGlow 1.8s infinite ease-in-out;
+    }
+
+    /* Candy 3D Button Shadows */
+    .btn-candy-pink {
+      background: linear-gradient(135deg, #FF2A85, #E60067);
+      box-shadow: 0 6px 0 #9E0045, 0 12px 18px rgba(0,0,0,0.35);
+      transition: all 0.15s ease-in-out;
+    }
+    .btn-candy-pink:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 #9E0045, 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    .btn-candy-yellow {
+      background: linear-gradient(135deg, #FFD200, #FF7A00);
+      box-shadow: 0 6px 0 #B35100, 0 12px 18px rgba(0,0,0,0.35);
+      transition: all 0.15s ease-in-out;
+    }
+    .btn-candy-yellow:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 #B35100, 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    .btn-candy-blue {
+      background: linear-gradient(135deg, #00D4FF, #0077FF);
+      box-shadow: 0 6px 0 #004DB3, 0 12px 18px rgba(0,0,0,0.35);
+      transition: all 0.15s ease-in-out;
+    }
+    .btn-candy-blue:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 #004DB3, 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    .btn-candy-purple {
+      background: linear-gradient(135deg, #A855F7, #6B00D7);
+      box-shadow: 0 6px 0 #43008A, 0 12px 18px rgba(0,0,0,0.35);
+      transition: all 0.15s ease-in-out;
+    }
+    .btn-candy-purple:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 #43008A, 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    /* Card 3D effect */
+    .candy-card {
+      background: rgba(26, 11, 59, 0.88);
+      border: 3px solid rgba(255, 210, 0, 0.45);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.45), inset 0 2px 4px rgba(255,255,255,0.2);
+      backdrop-filter: blur(12px);
+    }
+
+    /* Dedicated Candy Title Tab / Banner */
+    .candy-title-tab {
+      background: linear-gradient(180deg, rgba(32, 13, 72, 0.94) 0%, rgba(17, 5, 44, 0.96) 100%);
+      border: 3px solid #FFD200;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55), 
+                  0 0 16px rgba(255, 210, 0, 0.3),
+                  inset 0 2px 6px rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(16px);
+    }
+
+    /* Connection Line SVG drawing animation */
+    .connection-line {
+      stroke-dasharray: 600;
+      stroke-dashoffset: 600;
+      animation: drawLine 0.5s ease-out forwards;
+    }
+    @keyframes drawLine {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    /* Custom scrollbar for gallery and profile */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(17, 5, 44, 0.5);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #FF2A85;
+      border-radius: 999px;
+    }
+  </style>
+</head>
+<body class="relative flex flex-col min-h-screen text-candy-cream overflow-x-hidden">
+
+  <!-- Ambient AI Background (Vertical for Portrait/Mobile, Horizontal for Landscape/Desktop) -->
+  <div class="fixed inset-0 w-full h-full pointer-events-none z-0 overflow-hidden" aria-hidden="true">
+    <picture class="w-full h-full block">
+      <!-- Background Melintang (Landscape: Desktop, Laptop & Skrin Lebar) -->
+      <source media="(orientation: landscape)" srcset="https://imglink.cc/cdn/eQeZ1l03eq.jpeg">
+      <!-- Background Menegak (Portrait: Telefon Pintar & Tablet Menegak) -->
+      <source media="(orientation: portrait)" srcset="https://imglink.cc/cdn/7StITkRCav.jpeg">
+      <img id="aiBgImage" 
+           src="https://imglink.cc/cdn/eQeZ1l03eq.jpeg" 
+           alt="Body Connection Workshop AI Background" 
+           class="w-full h-full object-cover object-center filter brightness-[0.85] contrast-[1.05]"
+           onerror="this.classList.add('hidden'); document.getElementById('svgFallbackBg').classList.remove('hidden');">
+    </picture>
+
+    <!-- Overlay Gradien & Zarah Cahaya untuk Kedalaman Visual -->
+    <div class="absolute inset-0 bg-gradient-to-b from-candy-dark/40 via-candy-dark/15 to-candy-dark/70 pointer-events-none"></div>
+
+    <!-- Floating Sparkles & Discovery Lights Overlay -->
+    <svg id="ambientParticlesOverlay" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" class="absolute inset-0 w-full h-full pointer-events-none">
+      <circle cx="200" cy="180" r="4" fill="#FFD200" opacity="0.6">
+        <animate attributeName="opacity" values="0.3;0.9;0.3" dur="3s" repeatCount="indefinite"/>
+        <animate attributeName="r" values="3;6;3" dur="3s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="850" cy="120" r="5" fill="#00F0FF" opacity="0.5">
+        <animate attributeName="opacity" values="0.2;0.8;0.2" dur="4s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="1240" cy="220" r="4" fill="#FF2A85" opacity="0.6">
+        <animate attributeName="opacity" values="0.3;1;0.3" dur="2.5s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="1310" cy="460" r="5" fill="#FFD200" opacity="0.5">
+        <animate attributeName="opacity" values="0.2;0.7;0.2" dur="3.5s" repeatCount="indefinite"/>
+      </circle>
+    </svg>
+
+    <!-- Sandaran SVG Pintar (Hanya Muncul Jika CDN Gambar Luar Disekat) -->
+    <div id="svgFallbackBg" class="absolute inset-0 w-full h-full hidden">
+      <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" class="w-full h-full">
+        <defs>
+          <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#1A0738"/>
+            <stop offset="50%" stop-color="#2D0B5A"/>
+            <stop offset="100%" stop-color="#150426"/>
+          </linearGradient>
+        </defs>
+        <rect width="1440" height="900" fill="url(#bgGrad)"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Top Navigation Header -->
+  <header class="relative z-30 flex items-center justify-between px-3 py-2.5 md:px-8 md:py-3 max-w-7xl w-full mx-auto">
+    <!-- Brand Logo Button (Dengan Pill Tab Berkontras Tinggi) -->
+    <button id="btnLogoHome" class="flex items-center gap-2.5 bg-candy-dark/80 backdrop-blur-md border border-white/25 px-2.5 py-1.5 rounded-2xl shadow-lg transition-transform active:scale-95 text-left focus:outline-none focus:ring-4 focus:ring-candy-yellow" aria-label="Kindy Klub Home">
+      <div class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-candy-pink to-candy-yellow flex items-center justify-center shadow-md border border-white/60 shrink-0">
+        <!-- Explorer Compass Icon SVG -->
+        <svg viewBox="0 0 48 48" class="w-6 h-6 md:w-7 md:h-7 text-white filter drop-shadow">
+          <circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="4"/>
+          <polygon points="24,8 30,24 24,40 18,24" fill="#FF2A85"/>
+          <circle cx="24" cy="24" r="5" fill="#FFD200"/>
+        </svg>
+      </div>
+      <div>
+        <h1 class="text-base md:text-xl font-extrabold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-candy-yellow via-candy-coral to-candy-pink leading-tight">
+          Kindy Klub
+        </h1>
+        <p id="headerSubtitle" class="text-[10px] md:text-xs font-bold text-candy-cyan tracking-wider truncate max-w-[150px] sm:max-w-xs">
+          Sambungkan Anggota Badan
+        </p>
+      </div>
+    </button>
+
+    <!-- Top Action Buttons -->
+    <div class="flex items-center gap-2 md:gap-3">
+      <!-- Audio Toggle -->
+      <button id="btnAudioToggle" class="w-10 h-10 md:w-12 md:h-12 rounded-2xl bg-candy-navy/85 backdrop-blur-md border-2 border-candy-yellow/50 flex items-center justify-center text-candy-yellow shadow-md hover:bg-candy-navy transition-transform active:scale-95 focus:outline-none focus:ring-4 focus:ring-candy-yellow" aria-label="Toggle Sound">
+        <svg id="iconAudioOn" viewBox="0 0 24 24" class="w-5 h-5 md:w-6 md:h-6 fill-current">
+          <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+        </svg>
+        <svg id="iconAudioOff" viewBox="0 0 24 24" class="w-5 h-5 md:w-6 md:h-6 fill-current hidden">
+          <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27l4.73 4.73H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+        </svg>
+      </button>
+
+      <!-- Language Toggle Switch (BM / EN) -->
+      <button id="btnLangToggle" class="px-2.5 py-2 md:px-4 md:py-2.5 rounded-2xl bg-gradient-to-r from-candy-purple to-candy-pink border-2 border-white/60 text-white font-extrabold text-xs md:text-base shadow-lg transition-transform active:scale-95 flex items-center gap-1.5 focus:outline-none focus:ring-4 focus:ring-candy-cyan" aria-label="Tukar Bahasa / Switch Language">
+        <span class="w-2 h-2 rounded-full bg-candy-yellow animate-ping"></span>
+        <span id="langLabel">Bahasa Melayu</span>
+      </button>
+
+      <!-- Profile Icon Button -->
+      <button id="btnOpenProfile" class="w-10 h-10 md:w-12 md:h-12 rounded-2xl bg-candy-yellow text-candy-dark font-extrabold flex items-center justify-center shadow-lg hover:scale-105 transition-transform active:scale-95 focus:outline-none focus:ring-4 focus:ring-candy-pink" aria-label="Profil Pemain">
+        <svg viewBox="0 0 24 24" class="w-5 h-5 md:w-6 md:h-6 fill-current">
+          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main View Container -->
+  <main id="appContainer" class="relative z-20 flex-1 flex flex-col items-center justify-center p-3 md:p-6 w-full max-w-7xl mx-auto">
+    <!-- Dynamic views will be rendered here via JavaScript -->
+  </main>
+
+  <!-- Footer (Strictly Kinder Klub | All Rights Reserved on every screen) -->
+  <footer class="relative z-20 w-full py-4 pb-8 text-center text-xs md:text-sm font-bold text-candy-cream/80 tracking-wide">
+    <p class="drop-shadow-md">Kinder Klub | All Rights Reserved</p>
+  </footer>
+
+  <!-- Accessible Modal Container -->
+  <div id="modalOverlay" class="fixed inset-0 z-50 bg-candy-dark/85 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div id="modalContent" class="candy-card rounded-3xl max-w-lg w-full p-6 text-center border-4 border-candy-yellow relative animate-pop-in">
+      <div id="modalBody"></div>
+      <button id="modalCloseBtn" class="mt-6 px-8 py-3 rounded-2xl btn-candy-pink text-white font-extrabold text-lg shadow-lg">
+        OK
+      </button>
+    </div>
+  </div>
+
+  <script>
+    /* =========================================================================
+       CENTRALIZED ASSETS CONFIGURATION
+       ========================================================================= */
+    const ASSETS = {
+      characters: {
+        boy: "https://imglink.cc/cdn/4JWjWEQSOj.png",
+        girl: "https://imglink.cc/cdn/yeJBNNVCCO.png"
+      },
+      bodyParts: {
+        head: {
+          key: "head",
+          ms: "Kepala",
+          bm: "Kepala",
+          en: "Head",
+          url: "https://imglink.cc/cdn/GbTdh3ZG6d.png",
+          targetRatio: { x: 0.50, y: 0.14 }
+        },
+        hair: {
+          key: "hair",
+          ms: "Rambut",
+          bm: "Rambut",
+          en: "Hair",
+          url: "https://imglink.cc/cdn/oNbdtmNXEI.png",
+          targetRatio: { x: 0.50, y: 0.08 }
+        },
+        forehead: {
+          key: "forehead",
+          ms: "Dahi",
+          bm: "Dahi",
+          en: "Forehead",
+          url: "https://imglink.cc/cdn/T8KY3TqQrE.jpeg",
+          targetRatio: { x: 0.50, y: 0.16 }
+        },
+        eyebrow: {
+          key: "eyebrow",
+          ms: "Kening",
+          bm: "Kening",
+          en: "Eyebrow",
+          url: "https://imglink.cc/cdn/uv-1fdM98h.jpeg",
+          targetRatio: { x: 0.43, y: 0.20 }
+        },
+        eyes: {
+          key: "eyes",
+          ms: "Mata",
+          bm: "Mata",
+          en: "Eyes",
+          url: "https://imglink.cc/cdn/EHxB-Ftrk-.png",
+          targetRatio: { x: 0.43, y: 0.24 }
+        },
+        ears: {
+          key: "ears",
+          ms: "Telinga",
+          bm: "Telinga",
+          en: "Ears",
+          url: "https://imglink.cc/cdn/lReVZ5O2ZY.png",
+          targetRatio: { x: 0.26, y: 0.26 }
+        },
+        nose: {
+          key: "nose",
+          ms: "Hidung",
+          bm: "Hidung",
+          en: "Nose",
+          url: "https://imglink.cc/cdn/sObzN8lcwH.png",
+          targetRatio: { x: 0.50, y: 0.28 }
+        },
+        cheeks: {
+          key: "cheeks",
+          ms: "Pipi",
+          bm: "Pipi",
+          en: "Cheeks",
+          url: "https://imglink.cc/cdn/Rqxp4jtG42.jpeg",
+          targetRatio: { x: 0.36, y: 0.30 }
+        },
+        mouth: {
+          key: "mouth",
+          ms: "Mulut",
+          bm: "Mulut",
+          en: "Mouth",
+          url: "https://imglink.cc/cdn/ftTBOVVeY-.png",
+          targetRatio: { x: 0.50, y: 0.34 }
+        },
+        chin: {
+          key: "chin",
+          ms: "Dagu",
+          bm: "Dagu",
+          en: "Chin",
+          url: "https://imglink.cc/cdn/Rs1b1jOsa8.jpeg",
+          targetRatio: { x: 0.50, y: 0.38 }
+        },
+        neck: {
+          key: "neck",
+          ms: "Leher",
+          bm: "Leher",
+          en: "Neck",
+          url: "https://imglink.cc/cdn/CLGXhdM7Mf.jpeg",
+          targetRatio: { x: 0.50, y: 0.43 }
+        },
+        shoulder: {
+          key: "shoulder",
+          ms: "Bahu",
+          bm: "Bahu",
+          en: "Shoulder",
+          url: "https://imglink.cc/cdn/OFhEDHwsnO.jpeg",
+          targetRatio: { x: 0.31, y: 0.46 }
+        },
+        arm: {
+          key: "arm",
+          ms: "Lengan",
+          bm: "Lengan",
+          en: "Arm",
+          url: "https://imglink.cc/cdn/JXTnQqLOUU.jpeg",
+          targetRatio: { x: 0.25, y: 0.52 }
+        },
+        elbow: {
+          key: "elbow",
+          ms: "Siku",
+          bm: "Siku",
+          en: "Elbow",
+          url: "https://i.postimg.cc/CLPKFZXF/IMG-6314.jpg",
+          targetRatio: { x: 0.21, y: 0.57 }
+        },
+        hands: {
+          key: "hands",
+          ms: "Tangan",
+          bm: "Tangan",
+          en: "Hands",
+          url: "https://imglink.cc/cdn/WAYmZyyvCg.jpeg",
+          targetRatio: { x: 0.17, y: 0.63 }
+        },
+        palm: {
+          key: "palm",
+          ms: "Tapak Tangan",
+          bm: "Tapak Tangan",
+          en: "Palm",
+          url: "https://i.postimg.cc/YqnSp4Zr/IMG-6311.jpg",
+          targetRatio: { x: 0.16, y: 0.65 }
+        },
+        fingers: {
+          key: "fingers",
+          ms: "Jari",
+          bm: "Jari",
+          en: "Fingers",
+          url: "https://imglink.cc/cdn/wTrysmJu5G.jpeg",
+          targetRatio: { x: 0.15, y: 0.68 }
+        },
+        tummy: {
+          key: "tummy",
+          ms: "Perut",
+          bm: "Perut",
+          en: "Tummy",
+          url: "https://imglink.cc/cdn/bHjrQu3zcA.jpeg",
+          targetRatio: { x: 0.50, y: 0.55 }
+        },
+        leg: {
+          key: "leg",
+          ms: "Kaki",
+          bm: "Kaki",
+          en: "Leg",
+          url: "https://imglink.cc/cdn/SSPe1w4Z3F.jpeg",
+          targetRatio: { x: 0.40, y: 0.70 }
+        },
+        knee: {
+          key: "knee",
+          ms: "Lutut",
+          bm: "Lutut",
+          en: "Knee",
+          url: "https://imglink.cc/cdn/hdRcr4qRgG.jpeg",
+          targetRatio: { x: 0.40, y: 0.78 }
+        },
+        feet: {
+          key: "feet",
+          ms: "Kaki (Tapak)",
+          bm: "Kaki (Tapak)",
+          en: "Feet",
+          url: "https://i.postimg.cc/wTTv85f3/IMG-6277.jpg",
+          targetRatio: { x: 0.38, y: 0.92 }
+        },
+        heel: {
+          key: "heel",
+          ms: "Tumit",
+          bm: "Tumit",
+          en: "Heel",
+          url: "https://imglink.cc/cdn/tu9VDAnOVL.jpeg",
+          targetRatio: { x: 0.34, y: 0.94 }
+        },
+        toes: {
+          key: "toes",
+          ms: "Jari Kaki",
+          bm: "Jari Kaki",
+          en: "Toes",
+          url: "https://i.postimg.cc/BQYvq8kJ/IMG-6278.jpg",
+          targetRatio: { x: 0.42, y: 0.97 }
+        }
+      },
+      mascot: {
+        base: "https://imglink.cc/cdn/Z_MnZXrTV4.png",
+        idle: "https://imglink.cc/cdn/Dn_mSXYwAR.png",
+        happyDiscovery: "https://imglink.cc/cdn/zaiGaVKnBK.png",
+        correct: "https://imglink.cc/cdn/rDWftLUyBP.png",
+        thinking: "https://imglink.cc/cdn/TiHc9WBX5h.png",
+        mistake: "https://imglink.cc/cdn/2StPzyGdrl.png",
+        pointing: "https://imglink.cc/cdn/RVsIgjgzKM.png",
+        magnifyingGlass: "https://imglink.cc/cdn/_OcdofJFta.png",
+        excited: "https://imglink.cc/cdn/zXsJczdIyW.png",
+        celebration: "https://imglink.cc/cdn/SFEJ1ebHF7.png"
+      },
+      tools: {
+        magnifyingGlass: "https://imglink.cc/cdn/sbKxVPl2Mn.png",
+        clipboard: "https://imglink.cc/cdn/hzwB7Vslsm.png",
+        displayBoard: "https://i.postimg.cc/Qx4MXBwd/IMG-6332.png",
+        targetMarker: "https://i.postimg.cc/ncBC1VPk/IMG-6331.png",
+        memoryCardBack: "https://i.postimg.cc/Qx1HqNyq/IMG-6333.png",
+        countingToken: "https://i.postimg.cc/rFxK9yP1/IMG-6334.png"
+      },
+      backgrounds: {
+        vertical: "https://imglink.cc/cdn/7StITkRCav.jpeg",
+        horizontal: "https://imglink.cc/cdn/eQeZ1l03eq.jpeg"
+      }
+    };
+
+    function getFallbackSvg(type, key) {
+      if (type === 'character') {
+        const isBoy = key === 'boy';
+        return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 400" width="200" height="400">
+          <circle cx="100" cy="70" r="45" fill="${isBoy ? '#FFD200' : '#FF2A85'}"/>
+          <path d="M 60 70 Q 100 20 140 70 Z" fill="${isBoy ? '#4B1278' : '#FF7A00'}"/>
+          <circle cx="85" cy="70" r="6" fill="#11052C"/><circle cx="115" cy="70" r="6" fill="#11052C"/>
+          <path d="M 90 90 Q 100 100 110 90" stroke="#FF2A85" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <rect x="75" y="130" width="50" height="110" rx="20" fill="${isBoy ? '#00D4FF' : '#FF2A85'}"/>
+          <rect x="40" y="140" width="25" height="90" rx="12" fill="#FFD200"/>
+          <rect x="135" y="140" width="25" height="90" rx="12" fill="#FFD200"/>
+          <rect x="70" y="240" width="25" height="110" rx="12" fill="#8A2BE2"/>
+          <rect x="105" y="240" width="25" height="110" rx="12" fill="#8A2BE2"/>
+          <ellipse cx="80" cy="360" rx="18" ry="10" fill="#FF7A00"/>
+          <ellipse cx="120" cy="360" rx="18" ry="10" fill="#FF7A00"/>
+        </svg>`;
+      }
+      if (type === 'target') {
+        return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+          <circle cx="50" cy="50" r="42" fill="#FFD200" opacity="0.3"/>
+          <circle cx="50" cy="50" r="30" fill="none" stroke="#FF2A85" stroke-width="6"/>
+          <circle cx="50" cy="50" r="14" fill="#00F0FF"/>
+        </svg>`;
+      }
+      if (type === 'mascot') {
+        return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 140" width="140" height="140">
+          <circle cx="70" cy="70" r="55" fill="#FFD200" stroke="#FF7A00" stroke-width="6"/>
+          <circle cx="50" cy="60" r="8" fill="#11052C"/><circle cx="90" cy="60" r="8" fill="#11052C"/>
+          <circle cx="52" cy="58" r="3" fill="#FFF"/><circle cx="92" cy="58" r="3" fill="#FFF"/>
+          <path d="M 50 85 Q 70 110 90 85" stroke="#FF2A85" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <polygon points="70,10 55,25 85,25" fill="#FF2A85"/>
+        </svg>`;
+      }
+      return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+        <rect width="120" height="120" rx="28" fill="#8A2BE2"/>
+        <circle cx="60" cy="60" r="38" fill="#FFD200"/>
+        <circle cx="60" cy="60" r="24" fill="#FF2A85"/>
+        <text x="60" y="66" font-family="sans-serif" font-size="20" font-weight="bold" fill="#FFF" text-anchor="middle">★</text>
+      </svg>`;
+    }
+
+    function handleImgError(imgEl, type, key) {
+      imgEl.onerror = null;
+      imgEl.src = getFallbackSvg(type, key);
+    }
+  </script>
+
+  <script>
+    /* =========================================================================
+       COMPLETE BILINGUAL I18N SYSTEM (MALAYSIAN BM & ENGLISH)
+       ========================================================================= */
+    const I18N = {
+      ms: {
+        brandSubtitle: "Sambungkan Anggota Badan",
+        title: "Anggota Badan Adventure",
+        subtitle: "Jom sambungkan anggota badan ke tempat yang betul!",
+        btnStart: "Mula Main",
+        btnProfile: "Profil Pemain",
+        btnFamilyCode: "Kod Keluarga",
+        btnStudentProfile: "Profil Murid",
+        btnCollection: "Koleksi",
+        btnHowToPlay: "Cara Main",
+        howToPlayTitle: "Cara Main",
+        howToPlayInstruction: "Sambungkan setiap anggota badan ke tempat yang betul!",
+        howToPlayPartSample: "Hidung",
+        howToPlayTargetSample: "Sasaran",
+        sessionTitle: "Pilih Permainan",
+        session5: "5 Soalan",
+        session10: "10 Soalan",
+        session20: "20 Soalan",
+        sessionFree: "Main Bebas",
+        greatJob: "Hebat!",
+        gameComplete: "Permainan Selesai!",
+        score: "Skor",
+        correctAnswers: "Jawapan Betul",
+        accuracy: "Ketepatan",
+        playAgain: "Main Lagi",
+        backToMenu: "Kembali ke Menu",
+        tryAgain: "Cuba lagi!",
+        correctNudge: "Tepat sekali!",
+        dragInstruction: "Tarik anggota badan ke sasaran watak!",
+        tapTargetInstruction: "Sekarang, tekan penanda sasaran pada watak!",
+        helperTip: "💡 Tip: Kanak-kanak boleh tarik atau tekan kad untuk menyambung secara interaktif!",
+        targetAria: "Penanda sasaran untuk",
+        gamesPlayed: "Permainan Dimainkan",
+        questionsAnswered: "Soalan Dijawab",
+        bestScore: "Skor Terbaik",
+        recentActivity: "Aktiviti Terkini",
+        emptyActivity: "Tiada aktiviti lagi. Jom mula bermain!",
+        studentNameLabel: "Nama Murid:",
+        studentNamePlaceholder: "Nama Murid",
+        blankLabel: "— (Kosong)",
+        save: "Simpan",
+        close: "Tutup",
+        familyCodePrompt: "Masukkan Kod Keluarga anda di bawah:",
+        codePlaceholder: "Biarkan kosong atau masukkan kod",
+        collectionTitle: "Koleksi Penjelajah",
+        back: "Kembali"
+      },
+      en: {
+        brandSubtitle: "Connect the Body Parts",
+        title: "Body Explorer Adventure",
+        subtitle: "Let's connect each body part to the right place!",
+        btnStart: "Start Playing",
+        btnProfile: "Player Profile",
+        btnFamilyCode: "Family Code",
+        btnStudentProfile: "Student Profile",
+        btnCollection: "Collection",
+        btnHowToPlay: "How to Play",
+        howToPlayTitle: "How to Play",
+        howToPlayInstruction: "Connect each body part to the correct place!",
+        howToPlayPartSample: "Nose",
+        howToPlayTargetSample: "Target",
+        sessionTitle: "Choose a Game",
+        session5: "5 Questions",
+        session10: "10 Questions",
+        session20: "20 Questions",
+        sessionFree: "Free Play",
+        greatJob: "Great Job!",
+        gameComplete: "Game Complete!",
+        score: "Score",
+        correctAnswers: "Correct Answers",
+        accuracy: "Accuracy",
+        playAgain: "Play Again",
+        backToMenu: "Back to Menu",
+        tryAgain: "Try again!",
+        correctNudge: "Spot on!",
+        dragInstruction: "Drag the body part to the character's target!",
+        tapTargetInstruction: "Now, tap the target marker on the character!",
+        helperTip: "💡 Tip: Children can drag or tap cards to connect interactively!",
+        targetAria: "Target marker for",
+        gamesPlayed: "Games Played",
+        questionsAnswered: "Questions Answered",
+        bestScore: "Best Score",
+        recentActivity: "Recent Activity",
+        emptyActivity: "No activity yet. Let's start playing!",
+        studentNameLabel: "Student Name:",
+        studentNamePlaceholder: "Student Name",
+        blankLabel: "— (Blank)",
+        save: "Save",
+        close: "Close",
+        familyCodePrompt: "Enter your Family Code below:",
+        codePlaceholder: "Leave blank or enter code",
+        collectionTitle: "Explorer Collection",
+        back: "Back"
+      }
+    };
+
+    const STORAGE_KEY = "kinderKlub_anggotaBadan_playerProfile";
+    let currentLang = 'ms';
+    let soundEnabled = true;
+
+    function loadProfileData() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) return JSON.parse(raw);
+      } catch (e) {
+        console.warn("Storage access restricted:", e);
+      }
+      return {
+        studentName: "",
+        familyCode: "",
+        gamesPlayed: 0,
+        questionsAnswered: 0,
+        correctAnswers: 0,
+        bestScore: 0,
+        totalAttempts: 0,
+        activities: []
+      };
+    }
+
+    function saveProfileData(data) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      } catch (e) {
+        console.warn("Cannot save to localStorage:", e);
+      }
+    }
+
+    let userProfile = loadProfileData();
+
+    // Web Audio Synthesizer
+    const AudioEngine = {
+      ctx: null,
+      init() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (AudioContext) this.ctx = new AudioContext();
+        }
+      },
+      playSuccess() {
+        if (!soundEnabled) return;
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(523.25, now);
+        osc.frequency.exponentialRampToValueAtTime(659.25, now + 0.1);
+        osc.frequency.exponentialRampToValueAtTime(783.99, now + 0.2);
+        osc.frequency.exponentialRampToValueAtTime(1046.50, now + 0.35);
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.linearRampToValueAtTime(0.01, now + 0.45);
+        osc.start(now);
+        osc.stop(now + 0.45);
+      },
+      playMistake() {
+        if (!soundEnabled) return;
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.type = "triangle";
+        osc.frequency.setValueAtTime(260, now);
+        osc.frequency.exponentialRampToValueAtTime(180, now + 0.25);
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.linearRampToValueAtTime(0.01, now + 0.3);
+        osc.start(now);
+        osc.stop(now + 0.3);
+      },
+      playPop() {
+        if (!soundEnabled) return;
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(440, now);
+        osc.frequency.exponentialRampToValueAtTime(880, now + 0.08);
+        gain.gain.setValueAtTime(0.15, now);
+        gain.gain.linearRampToValueAtTime(0.01, now + 0.1);
+        osc.start(now);
+        osc.stop(now + 0.1);
+      }
+    };
+  </script>
+
+  <script>
+    /* =========================================================================
+       GAMEPLAY ENGINE & STATE
+       ========================================================================= */
+    const appContainer = document.getElementById('appContainer');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalBody = document.getElementById('modalBody');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+    const btnLangToggle = document.getElementById('btnLangToggle');
+    const langLabel = document.getElementById('langLabel');
+    const headerSubtitle = document.getElementById('headerSubtitle');
+    const btnAudioToggle = document.getElementById('btnAudioToggle');
+    const iconAudioOn = document.getElementById('iconAudioOn');
+    const iconAudioOff = document.getElementById('iconAudioOff');
+    const btnLogoHome = document.getElementById('btnLogoHome');
+    const btnOpenProfile = document.getElementById('btnOpenProfile');
+
+    let currentSessionMode = '5';
+    let currentQuestionIndex = 0;
+    let totalQuestionsInSession = 5;
+    let sessionScore = 0;
+    let sessionCorrect = 0;
+    let sessionTotalTries = 0;
+    let activeTaskItems = [];
+    let completedConnections = 0;
+    let selectedCharacter = 'boy';
+    let currentVariation = 'A';
+    let lastUsedKeys = [];
+    let isTransitioningQuestion = false;
+
+    let isDragging = false;
+    let dragSourceItem = null;
+    let dragStartPoint = { x: 0, y: 0 };
+    let tempSvgLine = null;
+    let activeSvgOverlay = null;
+
+    function getPartLabel(part) {
+      if (!part) return "";
+      return part[currentLang] || part.ms || part.bm || part.en || "";
+    }
+
+    function updateHeaderSubtitle() {
+      if (headerSubtitle) {
+        headerSubtitle.textContent = I18N[currentLang].brandSubtitle;
+      }
+      if (langLabel) {
+        langLabel.textContent = currentLang === 'ms' ? 'Bahasa Melayu' : 'English';
+      }
+    }
+
+    function showModal(contentHtml) {
+      modalBody.innerHTML = contentHtml;
+      modalOverlay.classList.remove('hidden');
+    }
+    modalCloseBtn.addEventListener('click', () => {
+      AudioEngine.playPop();
+      modalOverlay.classList.add('hidden');
+    });
+
+    function renderHomeView() {
+      const t = I18N[currentLang];
+      updateHeaderSubtitle();
+
+      appContainer.innerHTML = `
+        <div class="flex flex-col items-center justify-center w-full max-w-xl text-center py-4 animate-pop-in">
+          
+          <!-- Mascot Hero Badge -->
+          <div class="relative mb-5">
+            <div class="w-32 h-32 md:w-36 md:h-36 rounded-full bg-gradient-to-tr from-candy-pink via-candy-yellow to-candy-cyan p-1.5 shadow-2xl animate-float-slow">
+              <div class="w-full h-full rounded-full bg-candy-dark flex items-center justify-center overflow-hidden">
+                <img id="homeMascotImg" src="${ASSETS.mascot.happyDiscovery}" alt="Explorer Mascot" class="w-full h-full object-contain filter drop-shadow" onerror="handleImgError(this, 'mascot', 'happyDiscovery')">
+              </div>
+            </div>
+            <!-- Star Accents -->
+            <div class="absolute -top-1 -right-1 text-candy-yellow text-2xl animate-pulse">★</div>
+            <div class="absolute -bottom-1 -left-1 text-candy-cyan text-xl animate-pulse">✦</div>
+          </div>
+
+          <!-- DEDICATED CANDY TITLE & SUBTITLE TAB (Berkontras Tinggi) -->
+          <div class="candy-title-tab w-full max-w-md px-5 py-3.5 md:px-7 md:py-4 rounded-3xl mb-6 shadow-2xl transform hover:scale-[1.02] transition-transform">
+            <div class="flex items-center justify-center gap-2 mb-1">
+              <span class="text-candy-yellow text-base sm:text-xl">★</span>
+              <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-candy-yellow via-white to-candy-pink drop-shadow">
+                ${t.title}
+              </h2>
+              <span class="text-candy-yellow text-base sm:text-xl">★</span>
+            </div>
+            <p class="text-xs sm:text-sm md:text-base font-bold text-candy-cyan drop-shadow-sm tracking-wide">
+              ${t.subtitle}
+            </p>
+          </div>
+
+          <!-- Main Menu Buttons Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 w-full px-2 max-w-md">
+            <button id="btnStartGame" class="btn-candy-pink py-3.5 px-6 rounded-2xl text-white font-extrabold text-lg md:text-xl flex items-center justify-center gap-3 sm:col-span-2 shadow-xl focus:outline-none focus:ring-4 focus:ring-candy-yellow">
+              <svg viewBox="0 0 24 24" class="w-6 h-6 md:w-7 md:h-7 fill-current"><path d="M8 5v14l11-7z"/></svg>
+              <span>${t.btnStart}</span>
+            </button>
+
+            <button id="btnProfileMenu" class="btn-candy-purple py-3.5 px-4 rounded-2xl text-white font-extrabold text-sm md:text-base flex items-center justify-center gap-2 shadow-lg">
+              <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+              <span>${t.btnProfile}</span>
+            </button>
+
+            <button id="btnFamilyCodeMenu" class="btn-candy-blue py-3.5 px-4 rounded-2xl text-white font-extrabold text-sm md:text-base flex items-center justify-center gap-2 shadow-lg">
+              <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+              <span>${t.btnFamilyCode}</span>
+            </button>
+
+            <button id="btnCollectionMenu" class="btn-candy-yellow py-3.5 px-4 rounded-2xl text-candy-dark font-extrabold text-sm md:text-base flex items-center justify-center gap-2 shadow-lg sm:col-span-2">
+              <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
+              <span>${t.btnCollection}</span>
+            </button>
+
+            <button id="btnHowToPlayMenu" class="candy-card py-3 px-4 rounded-2xl text-candy-cream font-extrabold text-sm md:text-base flex items-center justify-center gap-2 hover:border-candy-yellow sm:col-span-2">
+              <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current text-candy-yellow"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+              <span>${t.btnHowToPlay}</span>
+            </button>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('btnStartGame').onclick = () => { AudioEngine.playPop(); renderSessionSelection(); };
+      document.getElementById('btnProfileMenu').onclick = () => { AudioEngine.playPop(); renderProfileModal(); };
+      document.getElementById('btnFamilyCodeMenu').onclick = () => { AudioEngine.playPop(); renderFamilyCodeModal(); };
+      document.getElementById('btnCollectionMenu').onclick = () => { AudioEngine.playPop(); renderCollectionModal(); };
+      document.getElementById('btnHowToPlayMenu').onclick = () => { AudioEngine.playPop(); renderHowToPlayModal(); };
+    }
+
+    function renderSessionSelection() {
+      const t = I18N[currentLang];
+      updateHeaderSubtitle();
+
+      appContainer.innerHTML = `
+        <div class="flex flex-col items-center justify-center w-full max-w-xl text-center py-6 animate-pop-in">
+          
+          <!-- Dedicated Header Tab -->
+          <div class="candy-title-tab w-full max-w-md px-6 py-4 rounded-3xl mb-8 shadow-2xl">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-candy-yellow drop-shadow mb-1">
+              ${t.sessionTitle}
+            </h2>
+            <p class="text-xs sm:text-sm font-bold text-candy-cyan">
+              ${t.subtitle}
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full px-4 max-w-lg">
+            <button data-mode="5" class="session-btn btn-candy-pink p-5 rounded-3xl text-white font-extrabold text-xl shadow-lg">
+              ${t.session5}
+            </button>
+            <button data-mode="10" class="session-btn btn-candy-purple p-5 rounded-3xl text-white font-extrabold text-xl shadow-lg">
+              ${t.session10}
+            </button>
+            <button data-mode="20" class="session-btn btn-candy-blue p-5 rounded-3xl text-white font-extrabold text-xl shadow-lg">
+              ${t.session20}
+            </button>
+            <button data-mode="free" class="session-btn btn-candy-yellow p-5 rounded-3xl text-candy-dark font-extrabold text-xl shadow-lg">
+              ${t.sessionFree}
+            </button>
+          </div>
+
+          <button id="btnBackToHome" class="mt-8 px-6 py-3 rounded-2xl candy-card text-candy-cream font-bold hover:text-candy-yellow flex items-center gap-2">
+            ← <span>${t.backToMenu}</span>
+          </button>
+        </div>
+      `;
+
+      document.querySelectorAll('.session-btn').forEach(btn => {
+        btn.onclick = () => {
+          AudioEngine.playPop();
+          currentSessionMode = btn.dataset.mode;
+          totalQuestionsInSession = currentSessionMode === 'free' ? 999 : parseInt(currentSessionMode);
+          startNewSession();
+        };
+      });
+
+      document.getElementById('btnBackToHome').onclick = () => {
+        AudioEngine.playPop();
+        renderHomeView();
+      };
+    }
+
+    function startNewSession() {
+      currentQuestionIndex = 0;
+      sessionScore = 0;
+      sessionCorrect = 0;
+      sessionTotalTries = 0;
+      isTransitioningQuestion = false;
+      loadNextTask();
+    }
+
+    function loadNextTask() {
+      isTransitioningQuestion = false;
+      selectedCharacter = Math.random() > 0.5 ? 'boy' : 'girl';
+
+      const variations = ['A', 'B', 'C', 'D', 'E'];
+      currentVariation = variations[Math.floor(Math.random() * variations.length)];
+
+      let count = 3;
+      if (currentVariation === 'D') count = 2;
+      else if (currentVariation === 'E') count = 4;
+      else count = 3;
+
+      const allKeys = Object.keys(ASSETS.bodyParts);
+      let availableKeys = allKeys.filter(k => !lastUsedKeys.includes(k));
+      if (availableKeys.length < count) availableKeys = allKeys;
+
+      availableKeys.sort(() => Math.random() - 0.5);
+      const chosenKeys = availableKeys.slice(0, count);
+      lastUsedKeys = chosenKeys;
+
+      activeTaskItems = chosenKeys.map(k => ({
+        key: k,
+        data: ASSETS.bodyParts[k],
+        connected: false,
+        sourceEl: null,
+        targetEl: null,
+        permanentPath: null
+      }));
+
+      completedConnections = 0;
+      renderGameplayView();
+    }
+
+    function renderGameplayView() {
+      const t = I18N[currentLang];
+      const charUrl = ASSETS.characters[selectedCharacter];
+      updateHeaderSubtitle();
+
+      appContainer.innerHTML = `
+        <div class="relative w-full max-w-5xl flex flex-col items-center justify-between min-h-[560px] p-2">
+          
+          <!-- Top HUD Bar -->
+          <div class="w-full flex items-center justify-between gap-3 px-4 py-2.5 candy-card rounded-2xl mb-3 z-30">
+            <div class="flex items-center gap-2">
+              <span class="text-xs md:text-sm font-bold text-candy-cyan">
+                ${currentSessionMode === 'free' ? '∞' : (currentQuestionIndex + 1) + '/' + totalQuestionsInSession}
+              </span>
+              <span class="w-2 h-2 rounded-full bg-candy-yellow"></span>
+              <span class="text-sm md:text-base font-extrabold text-candy-yellow">
+                ${t.score}: ${sessionScore}
+              </span>
+            </div>
+
+            <!-- Mascot Speech Bubble -->
+            <div id="mascotHUD" class="flex items-center gap-2 max-w-[260px] md:max-w-md">
+              <img id="hudMascotImg" src="${ASSETS.mascot.pointing}" class="w-8 h-8 md:w-10 md:h-10 object-contain drop-shadow" alt="Mascot" onerror="handleImgError(this, 'mascot', 'pointing')">
+              <p id="mascotMessage" class="text-xs md:text-sm font-bold text-candy-cream truncate">
+                ${t.dragInstruction}
+              </p>
+            </div>
+
+            <!-- Quit Button -->
+            <button id="btnExitSession" class="text-xs md:text-sm font-bold px-3 py-1.5 rounded-xl bg-candy-dark border border-white/20 hover:border-candy-yellow" aria-label="Exit Game">
+              ✕
+            </button>
+          </div>
+
+          <!-- Interactive Playfield with SVG Canvas Overlay -->
+          <div id="playArea" class="relative w-full flex-1 flex flex-col md:flex-row items-center justify-around gap-6 p-4 rounded-3xl candy-card overflow-hidden">
+            
+            <!-- Real-time SVG Overlay for Drag Lines & Permanent Connections -->
+            <svg id="connectionSvg" class="absolute inset-0 w-full h-full pointer-events-none z-20"></svg>
+
+            <!-- Source Body Part Cards Container -->
+            <div id="cardsSourceContainer" class="flex flex-row md:flex-col items-center justify-center gap-3 z-30 flex-wrap">
+              <!-- Cards dynamically inserted -->
+            </div>
+
+            <!-- Central/Right Character with Target Markers -->
+            <div id="characterWrapper" class="relative flex items-center justify-center z-10 w-full md:w-auto h-[380px] md:h-[480px]">
+              <div id="characterBox" class="relative h-full flex items-center justify-center">
+                <img id="characterImage" src="${charUrl}" alt="Child Character" class="h-full w-auto max-w-full object-contain filter drop-shadow-2xl pointer-events-none select-none" onerror="handleImgError(this, 'character', '${selectedCharacter}')">
+                <!-- Target markers dynamically attached -->
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom Accessible Helper Notice (Fully localized) -->
+          <div class="mt-2 text-center text-xs font-semibold text-candy-cream/70">
+            <span id="helperTipText">${t.helperTip}</span>
+          </div>
+
+        </div>
+      `;
+
+      activeSvgOverlay = document.getElementById('connectionSvg');
+      document.getElementById('btnExitSession').onclick = () => {
+        AudioEngine.playPop();
+        renderHomeView();
+      };
+
+      setupCardsAndMarkers();
+      window.addEventListener('resize', recalculateConnections);
+    }
+
+    function setupCardsAndMarkers() {
+      const cardsContainer = document.getElementById('cardsSourceContainer');
+      const charBox = document.getElementById('characterBox');
+      cardsContainer.innerHTML = '';
+
+      // 1. Generate Body Part Cards
+      activeTaskItems.forEach(item => {
+        const card = document.createElement('div');
+        card.className = "candy-card p-2 md:p-3 rounded-2xl flex items-center gap-2.5 cursor-grab active:cursor-grabbing transition-transform hover:scale-105 active:scale-95 touch-none relative";
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('aria-label', getPartLabel(item.data));
+
+        const img = document.createElement('img');
+        img.src = item.data.url;
+        img.alt = getPartLabel(item.data);
+        img.className = "w-12 h-12 md:w-14 md:h-14 object-contain rounded-xl bg-candy-dark/60 p-1 pointer-events-none border border-candy-yellow/40";
+        img.onerror = () => handleImgError(img, 'part', item.key);
+
+        const label = document.createElement('span');
+        label.className = "font-extrabold text-sm md:text-base text-candy-cream pr-1 select-none pointer-events-none";
+        label.textContent = getPartLabel(item.data);
+
+        const pip = document.createElement('div');
+        pip.className = "pip-dot w-3.5 h-3.5 rounded-full bg-candy-yellow border-2 border-white pointer-events-none shadow";
+
+        card.appendChild(img);
+        card.appendChild(label);
+        card.appendChild(pip);
+
+        cardsContainer.appendChild(card);
+        item.sourceEl = card;
+
+        attachDragEvents(card, item);
+
+        card.addEventListener('click', (e) => {
+          if (isDragging || isTransitioningQuestion) return;
+          handleAccessibleSelect(item);
+        });
+      });
+
+      // 2. Position Target Markers on Character
+      activeTaskItems.forEach(item => {
+        const marker = document.createElement('div');
+        marker.className = "absolute z-30 w-11 h-11 md:w-12 md:h-12 flex items-center justify-center cursor-pointer transition-transform hover:scale-110 active:scale-95";
+        marker.setAttribute('role', 'button');
+        marker.setAttribute('aria-label', `${I18N[currentLang].targetAria} ${getPartLabel(item.data)}`);
+
+        const targetImg = document.createElement('img');
+        targetImg.src = ASSETS.tools.targetMarker;
+        targetImg.className = "w-full h-full object-contain target-marker-pulse pointer-events-none filter drop-shadow";
+        targetImg.onerror = () => handleImgError(targetImg, 'target', item.key);
+
+        marker.appendChild(targetImg);
+
+        const rx = item.data.targetRatio.x * 100;
+        const ry = item.data.targetRatio.y * 100;
+        marker.style.left = `${rx}%`;
+        marker.style.top = `${ry}%`;
+        marker.style.transform = 'translate(-50%, -50%)';
+
+        marker.addEventListener('click', () => {
+          if (accessibleSelectedSource && !isTransitioningQuestion) {
+            evaluateMatch(accessibleSelectedSource, item.key);
+          }
+        });
+
+        charBox.appendChild(marker);
+        item.targetEl = marker;
+      });
+    }
+
+    let accessibleSelectedSource = null;
+    function handleAccessibleSelect(item) {
+      if (item.connected || isTransitioningQuestion) return;
+      AudioEngine.playPop();
+      if (accessibleSelectedSource === item) {
+        item.sourceEl.classList.remove('ring-4', 'ring-candy-cyan');
+        accessibleSelectedSource = null;
+        return;
+      }
+      if (accessibleSelectedSource) {
+        accessibleSelectedSource.sourceEl.classList.remove('ring-4', 'ring-candy-cyan');
+      }
+      accessibleSelectedSource = item;
+      item.sourceEl.classList.add('ring-4', 'ring-candy-cyan');
+      setMascotMessage(ASSETS.mascot.pointing, I18N[currentLang].tapTargetInstruction);
+    }
+
+    function attachDragEvents(cardEl, taskItem) {
+      cardEl.addEventListener('pointerdown', (e) => {
+        if (taskItem.connected || isTransitioningQuestion) return;
+        e.preventDefault();
+        cardEl.setPointerCapture(e.pointerId);
+
+        isDragging = true;
+        dragSourceItem = taskItem;
+        cardEl.classList.add('scale-105', 'ring-4', 'ring-candy-yellow');
+        AudioEngine.playPop();
+
+        const playRect = document.getElementById('playArea').getBoundingClientRect();
+        const pip = cardEl.querySelector('.pip-dot') || cardEl;
+        const pipRect = pip.getBoundingClientRect();
+
+        dragStartPoint = {
+          x: (pipRect.left + pipRect.width / 2) - playRect.left,
+          y: (pipRect.top + pipRect.height / 2) - playRect.top
+        };
+
+        if (tempSvgLine) tempSvgLine.remove();
+        tempSvgLine = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        tempSvgLine.setAttribute('fill', 'none');
+        tempSvgLine.setAttribute('stroke', '#FFD200');
+        tempSvgLine.setAttribute('stroke-width', '6');
+        tempSvgLine.setAttribute('stroke-linecap', 'round');
+        tempSvgLine.setAttribute('stroke-dasharray', '8 6');
+        tempSvgLine.setAttribute('filter', 'drop-shadow(0 0 8px rgba(255,210,0,0.8))');
+        activeSvgOverlay.appendChild(tempSvgLine);
+
+        updateTempLine(e.clientX - playRect.left, e.clientY - playRect.top);
+      });
+
+      cardEl.addEventListener('pointermove', (e) => {
+        if (!isDragging || dragSourceItem !== taskItem || isTransitioningQuestion) return;
+        const playRect = document.getElementById('playArea').getBoundingClientRect();
+        updateTempLine(e.clientX - playRect.left, e.clientY - playRect.top);
+      });
+
+      const onEnd = (e) => {
+        if (!isDragging || dragSourceItem !== taskItem) return;
+        try { cardEl.releasePointerCapture(e.pointerId); } catch (_) {}
+        isDragging = false;
+        cardEl.classList.remove('scale-105', 'ring-4', 'ring-candy-yellow');
+
+        if (tempSvgLine) {
+          tempSvgLine.remove();
+          tempSvgLine = null;
+        }
+
+        evaluatePointerDrop(e.clientX, e.clientY, taskItem);
+      };
+
+      cardEl.addEventListener('pointerup', onEnd);
+      cardEl.addEventListener('pointercancel', onEnd);
+    }
+
+    function updateTempLine(toX, toY) {
+      if (!tempSvgLine) return;
+      const sx = dragStartPoint.x;
+      const sy = dragStartPoint.y;
+      const dx = toX - sx;
+      const pathData = `M ${sx} ${sy} C ${sx + dx * 0.4} ${sy}, ${toX - dx * 0.4} ${toY}, ${toX} ${toY}`;
+      tempSvgLine.setAttribute('d', pathData);
+    }
+
+    function evaluatePointerDrop(clientX, clientY, taskItem) {
+      if (!taskItem || !taskItem.targetEl || isTransitioningQuestion) return;
+      sessionTotalTries++;
+
+      const correctRect = taskItem.targetEl.getBoundingClientRect();
+      const cx = correctRect.left + correctRect.width / 2;
+      const cy = correctRect.top + correctRect.height / 2;
+      const dist = Math.hypot(clientX - cx, clientY - cy);
+
+      // Hitbox sasaran yang betul (65px)
+      if (dist <= 65) {
+        matchSuccess(taskItem);
+        return;
+      }
+
+      // Adakah ditarik ke sasaran lain?
+      let droppedOnOther = null;
+      activeTaskItems.forEach(other => {
+        if (other === taskItem || other.connected || !other.targetEl) return;
+        const r = other.targetEl.getBoundingClientRect();
+        const ocx = r.left + r.width / 2;
+        const ocy = r.top + r.height / 2;
+        if (Math.hypot(clientX - ocx, clientY - ocy) <= 65) {
+          droppedOnOther = other;
+        }
+      });
+
+      // Adakah ditarik ke kawasan tubuh watak secara am?
+      const charBox = document.getElementById('characterBox');
+      let droppedOnCharacterArea = false;
+      if (charBox) {
+        const cr = charBox.getBoundingClientRect();
+        if (clientX >= cr.left - 25 && clientX <= cr.right + 25 &&
+            clientY >= cr.top - 25 && clientY <= cr.bottom + 25) {
+          droppedOnCharacterArea = true;
+        }
+      }
+
+      // Jika ditarik ke sasaran lain atau ditarik ke kawasan watak tetapi tempat yang salah
+      if (droppedOnOther || droppedOnCharacterArea) {
+        matchMistake(taskItem);
+      } else {
+        // Jika hanya dilepaskan di kawasan kosong/asal (terlepas sentuhan), beri peluang tarik semula
+        taskItem.sourceEl.classList.add('animate-wobble');
+        setTimeout(() => taskItem.sourceEl.classList.remove('animate-wobble'), 600);
+        setMascotMessage(ASSETS.mascot.pointing, I18N[currentLang].dragInstruction);
+      }
+    }
+
+    function evaluateMatch(sourceItem, targetKey) {
+      if (isTransitioningQuestion) return;
+      sessionTotalTries++;
+      if (sourceItem.sourceEl) sourceItem.sourceEl.classList.remove('ring-4', 'ring-candy-cyan');
+      accessibleSelectedSource = null;
+
+      if (sourceItem.key === targetKey) {
+        matchSuccess(sourceItem);
+      } else {
+        matchMistake(sourceItem);
+      }
+    }
+
+    function matchSuccess(item) {
+      if (isTransitioningQuestion) return;
+      item.connected = true;
+      completedConnections++;
+      sessionScore += 10;
+      sessionCorrect++;
+
+      AudioEngine.playSuccess();
+      setMascotMessage(ASSETS.mascot.correct, I18N[currentLang].correctNudge);
+
+      item.sourceEl.classList.add('opacity-90', 'ring-4', 'ring-candy-lime');
+      item.sourceEl.style.cursor = 'default';
+
+      item.targetEl.classList.add('scale-125');
+      item.targetEl.style.filter = 'drop-shadow(0 0 12px #70E000)';
+
+      drawPermanentConnection(item);
+
+      if (completedConnections >= activeTaskItems.length) {
+        setTimeout(handleTaskComplete, 800);
+      }
+    }
+
+    function matchMistake(item) {
+      if (isTransitioningQuestion) return;
+      isTransitioningQuestion = true;
+
+      AudioEngine.playMistake();
+      setMascotMessage(ASSETS.mascot.mistake, I18N[currentLang].tryAgain);
+      if (item && item.sourceEl) {
+        item.sourceEl.classList.add('animate-wobble');
+      }
+
+      // Kunci interaksi sebentar sebelum beralih
+      const playArea = document.getElementById('playArea');
+      if (playArea) playArea.style.pointerEvents = 'none';
+
+      // Beri kanak-kanak lihat animasi 800ms kemudian terus beralih ke soalan seterusnya
+      setTimeout(() => {
+        currentQuestionIndex++;
+        if (currentSessionMode !== 'free' && currentQuestionIndex >= totalQuestionsInSession) {
+          renderResultView();
+        } else {
+          loadNextTask();
+        }
+      }, 850);
+    }
+
+    function drawPermanentConnection(item) {
+      const playRect = document.getElementById('playArea').getBoundingClientRect();
+      const pip = item.sourceEl.querySelector('.pip-dot') || item.sourceEl;
+      const pipRect = pip.getBoundingClientRect();
+      const targetRect = item.targetEl.getBoundingClientRect();
+
+      const sx = (pipRect.left + pipRect.width / 2) - playRect.left;
+      const sy = (pipRect.top + pipRect.height / 2) - playRect.top;
+      const tx = (targetRect.left + targetRect.width / 2) - playRect.left;
+      const ty = (targetRect.top + targetRect.height / 2) - playRect.top;
+
+      const dx = tx - sx;
+      const pathData = `M ${sx} ${sy} C ${sx + dx * 0.45} ${sy}, ${tx - dx * 0.45} ${ty}, ${tx} ${ty}`;
+
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', pathData);
+      path.setAttribute('fill', 'none');
+      path.setAttribute('stroke', '#00F0FF');
+      path.setAttribute('stroke-width', '5');
+      path.setAttribute('stroke-linecap', 'round');
+      path.setAttribute('filter', 'drop-shadow(0 0 6px rgba(0,240,255,0.8))');
+      path.classList.add('connection-line');
+
+      activeSvgOverlay.appendChild(path);
+      item.permanentPath = path;
+    }
+
+    function recalculateConnections() {
+      const playArea = document.getElementById('playArea');
+      if (!playArea || !activeSvgOverlay) return;
+      const playRect = playArea.getBoundingClientRect();
+
+      activeTaskItems.forEach(item => {
+        if (!item.connected || !item.permanentPath) return;
+        const pip = item.sourceEl.querySelector('.pip-dot') || item.sourceEl;
+        const pipRect = pip.getBoundingClientRect();
+        const targetRect = item.targetEl.getBoundingClientRect();
+
+        const sx = (pipRect.left + pipRect.width / 2) - playRect.left;
+        const sy = (pipRect.top + pipRect.height / 2) - playRect.top;
+        const tx = (targetRect.left + targetRect.width / 2) - playRect.left;
+        const ty = (targetRect.top + targetRect.height / 2) - playRect.top;
+
+        const dx = tx - sx;
+        item.permanentPath.setAttribute('d', `M ${sx} ${sy} C ${sx + dx * 0.45} ${sy}, ${tx - dx * 0.45} ${ty}, ${tx} ${ty}`);
+      });
+    }
+
+    function setMascotMessage(imgUrl, msg) {
+      const img = document.getElementById('hudMascotImg');
+      const text = document.getElementById('mascotMessage');
+      if (img) img.src = imgUrl;
+      if (text) text.textContent = msg;
+    }
+
+    function handleTaskComplete() {
+      if (isTransitioningQuestion) return;
+      isTransitioningQuestion = true;
+
+      currentQuestionIndex++;
+      AudioEngine.playSuccess();
+      setMascotMessage(ASSETS.mascot.celebration, I18N[currentLang].greatJob);
+
+      if (currentSessionMode !== 'free' && currentQuestionIndex >= totalQuestionsInSession) {
+        setTimeout(renderResultView, 700);
+      } else {
+        setTimeout(loadNextTask, 600);
+      }
+    }
+
+    function renderResultView() {
+      const t = I18N[currentLang];
+      const accuracy = sessionTotalTries > 0 ? Math.round((sessionCorrect / sessionTotalTries) * 100) : 100;
+
+      userProfile.gamesPlayed++;
+      userProfile.questionsAnswered += currentQuestionIndex;
+      userProfile.correctAnswers += sessionCorrect;
+      userProfile.totalAttempts += sessionTotalTries;
+      if (sessionScore > userProfile.bestScore) userProfile.bestScore = sessionScore;
+      userProfile.activities.unshift({
+        date: new Date().toLocaleDateString(),
+        score: sessionScore,
+        accuracy: accuracy + "%"
+      });
+      if (userProfile.activities.length > 5) userProfile.activities.pop();
+      saveProfileData(userProfile);
+
+      appContainer.innerHTML = `
+        <div class="flex flex-col items-center justify-center w-full max-w-lg text-center py-6 animate-pop-in">
+          <div class="w-32 h-32 rounded-full bg-gradient-to-tr from-candy-yellow via-candy-pink to-candy-cyan p-1 shadow-2xl animate-bounce-soft mb-4">
+            <div class="w-full h-full rounded-full bg-candy-dark flex items-center justify-center overflow-hidden">
+              <img src="${ASSETS.mascot.celebration}" class="w-full h-full object-contain filter drop-shadow" alt="Celebration" onerror="handleImgError(this, 'mascot', 'celebration')">
+            </div>
+          </div>
+
+          <div class="candy-title-tab w-full max-w-md px-6 py-3 rounded-2xl mb-5 shadow-2xl">
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-candy-yellow via-white to-candy-pink drop-shadow mb-0.5">
+              ${t.greatJob}
+            </h2>
+            <p class="text-sm font-bold text-candy-cyan">
+              ${t.gameComplete}
+            </p>
+          </div>
+
+          <!-- Score Card Results -->
+          <div class="candy-card w-full p-6 rounded-3xl grid grid-cols-3 gap-3 mb-7">
+            <div class="flex flex-col items-center">
+              <span class="text-xs md:text-sm font-bold text-candy-cream/70">${t.score}</span>
+              <span class="text-2xl md:text-3xl font-extrabold text-candy-yellow">+${sessionScore}</span>
+            </div>
+            <div class="flex flex-col items-center">
+              <span class="text-xs md:text-sm font-bold text-candy-cream/70">${t.correctAnswers}</span>
+              <span class="text-2xl md:text-3xl font-extrabold text-candy-lime">${sessionCorrect}</span>
+            </div>
+            <div class="flex flex-col items-center">
+              <span class="text-xs md:text-sm font-bold text-candy-cream/70">${t.accuracy}</span>
+              <span class="text-2xl md:text-3xl font-extrabold text-candy-cyan">${accuracy}%</span>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4 w-full px-4">
+            <button id="btnPlayAgain" class="btn-candy-pink flex-1 py-4 rounded-2xl text-white font-extrabold text-lg shadow-lg">
+              ${t.playAgain}
+            </button>
+            <button id="btnResultHome" class="btn-candy-purple flex-1 py-4 rounded-2xl text-white font-extrabold text-lg shadow-lg">
+              ${t.backToMenu}
+            </button>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('btnPlayAgain').onclick = () => { AudioEngine.playPop(); startNewSession(); };
+      document.getElementById('btnResultHome').onclick = () => { AudioEngine.playPop(); renderHomeView(); };
+    }
+
+    function renderProfileModal() {
+      const t = I18N[currentLang];
+      const acc = userProfile.totalAttempts > 0 ? Math.round((userProfile.correctAnswers / userProfile.totalAttempts) * 100) : 0;
+
+      const html = `
+        <h3 class="text-2xl font-extrabold text-candy-yellow mb-4">${t.btnProfile}</h3>
+        
+        <div class="space-y-4 text-left text-sm max-h-[60vh] overflow-y-auto pr-2">
+          <div class="candy-card p-3 rounded-2xl">
+            <label class="block font-bold text-candy-cyan mb-1">${t.studentNameLabel}</label>
+            <input id="inputStudentName" type="text" value="${userProfile.studentName || ''}" placeholder="${t.studentNamePlaceholder}" class="w-full px-3 py-2 rounded-xl bg-candy-dark border border-candy-yellow/40 text-candy-cream font-bold focus:outline-none focus:ring-2 focus:ring-candy-yellow">
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 text-center">
+            <div class="candy-card p-2 rounded-xl">
+              <div class="text-xs text-candy-cream/70">${t.gamesPlayed}</div>
+              <div class="text-lg font-extrabold text-candy-yellow">${userProfile.gamesPlayed}</div>
+            </div>
+            <div class="candy-card p-2 rounded-xl">
+              <div class="text-xs text-candy-cream/70">${t.questionsAnswered}</div>
+              <div class="text-lg font-extrabold text-candy-lime">${userProfile.questionsAnswered}</div>
+            </div>
+            <div class="candy-card p-2 rounded-xl">
+              <div class="text-xs text-candy-cream/70">${t.bestScore}</div>
+              <div class="text-lg font-extrabold text-candy-pink">${userProfile.bestScore}</div>
+            </div>
+            <div class="candy-card p-2 rounded-xl">
+              <div class="text-xs text-candy-cream/70">${t.accuracy}</div>
+              <div class="text-lg font-extrabold text-candy-cyan">${acc}%</div>
+            </div>
+          </div>
+
+          <div class="candy-card p-3 rounded-2xl">
+            <div class="text-xs text-candy-cream/70">${t.btnFamilyCode}:</div>
+            <div class="text-base font-extrabold text-candy-yellow">${userProfile.familyCode || t.blankLabel}</div>
+          </div>
+        </div>
+
+        <button id="btnSaveStudentName" class="mt-4 w-full py-2.5 rounded-xl btn-candy-pink font-extrabold text-white">
+          ${t.save}
+        </button>
+      `;
+
+      showModal(html);
+      document.getElementById('btnSaveStudentName').onclick = () => {
+        const val = document.getElementById('inputStudentName').value.trim();
+        userProfile.studentName = val;
+        saveProfileData(userProfile);
+        AudioEngine.playPop();
+        modalOverlay.classList.add('hidden');
+      };
+    }
+
+    function renderFamilyCodeModal() {
+      const t = I18N[currentLang];
+      const html = `
+        <h3 class="text-2xl font-extrabold text-candy-yellow mb-2">${t.btnFamilyCode}</h3>
+        <p class="text-sm font-semibold text-candy-cyan mb-4">${t.familyCodePrompt}</p>
+
+        <input id="inputFamilyCode" type="text" value="${userProfile.familyCode || ''}" placeholder="${t.codePlaceholder}" class="w-full px-4 py-3 rounded-2xl bg-candy-dark border-2 border-candy-yellow text-candy-cream text-center font-extrabold text-lg tracking-widest focus:outline-none focus:ring-4 focus:ring-candy-cyan mb-4">
+
+        <button id="btnSaveFamilyCode" class="w-full py-3 rounded-2xl btn-candy-blue font-extrabold text-white text-base">
+          ${t.save}
+        </button>
+      `;
+
+      showModal(html);
+      document.getElementById('btnSaveFamilyCode').onclick = () => {
+        const val = document.getElementById('inputFamilyCode').value.trim();
+        userProfile.familyCode = val;
+        saveProfileData(userProfile);
+        AudioEngine.playPop();
+        modalOverlay.classList.add('hidden');
+      };
+    }
+
+    function renderCollectionModal() {
+      const t = I18N[currentLang];
+      const keys = Object.keys(ASSETS.bodyParts);
+      let itemsHtml = '';
+
+      keys.forEach(k => {
+        const part = ASSETS.bodyParts[k];
+        itemsHtml += `
+          <div class="candy-card p-2 rounded-2xl flex flex-col items-center justify-center text-center">
+            <img src="${part.url}" alt="${getPartLabel(part)}" class="w-14 h-14 object-contain rounded-xl bg-candy-dark/60 p-1 mb-1 border border-candy-yellow/30" onerror="handleImgError(this, 'part', '${k}')">
+            <span class="text-xs font-bold text-candy-cream truncate w-full">${getPartLabel(part)}</span>
+          </div>
+        `;
+      });
+
+      const html = `
+        <h3 class="text-2xl font-extrabold text-candy-yellow mb-2">${t.collectionTitle}</h3>
+        <div class="grid grid-cols-3 sm:grid-cols-4 gap-2.5 max-h-[60vh] overflow-y-auto p-1">
+          ${itemsHtml}
+        </div>
+      `;
+
+      showModal(html);
+    }
+
+    function renderHowToPlayModal() {
+      const t = I18N[currentLang];
+      const html = `
+        <h3 class="text-2xl font-extrabold text-candy-yellow mb-2">${t.howToPlayTitle}</h3>
+        <p class="text-base font-bold text-candy-cream mb-4">${t.howToPlayInstruction}</p>
+
+        <div class="candy-card p-4 rounded-2xl flex items-center justify-around mb-2">
+          <div class="flex flex-col items-center">
+            <div class="w-12 h-12 rounded-xl bg-candy-pink flex items-center justify-center text-white font-extrabold">
+              <svg viewBox="0 0 24 24" class="w-7 h-7 fill-current"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+            </div>
+            <span class="text-xs font-bold mt-1 text-candy-yellow">${t.howToPlayPartSample}</span>
+          </div>
+
+          <svg viewBox="0 0 100 40" class="w-24 h-10">
+            <path d="M 10 20 C 40 5, 60 35, 90 20" fill="none" stroke="#FFD200" stroke-width="4" stroke-dasharray="6 4" stroke-linecap="round">
+              <animate attributeName="stroke-dashoffset" values="40;0" dur="1.5s" repeatCount="indefinite"/>
+            </path>
+            <polygon points="90,20 80,14 80,26" fill="#FFD200"/>
+          </svg>
+
+          <div class="flex flex-col items-center">
+            <div class="w-12 h-12 rounded-full border-2 border-candy-cyan flex items-center justify-center target-marker-pulse">
+              <div class="w-4 h-4 rounded-full bg-candy-lime"></div>
+            </div>
+            <span class="text-xs font-bold mt-1 text-candy-cyan">${t.howToPlayTargetSample}</span>
+          </div>
+        </div>
+      `;
+
+      showModal(html);
+    }
+
+    btnLangToggle.onclick = () => {
+      AudioEngine.playPop();
+      currentLang = currentLang === 'ms' ? 'en' : 'ms';
+      renderHomeView();
+    };
+
+    btnAudioToggle.onclick = () => {
+      soundEnabled = !soundEnabled;
+      iconAudioOn.classList.toggle('hidden', !soundEnabled);
+      iconAudioOff.classList.toggle('hidden', soundEnabled);
+      AudioEngine.playPop();
+    };
+
+    btnLogoHome.onclick = () => {
+      AudioEngine.playPop();
+      renderHomeView();
+    };
+
+    btnOpenProfile.onclick = () => {
+      AudioEngine.playPop();
+      renderProfileModal();
+    };
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderHomeView();
+    });
+  </script>
+</body>
+</html>
